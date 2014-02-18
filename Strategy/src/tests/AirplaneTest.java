@@ -3,20 +3,14 @@
  */
 package tests;
 
-import static org.junit.Assert.*; 
+import static org.junit.Assert.assertEquals;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import vehicles.Airplane;
-import vehicles.IFlyLikeFJ;
 import vehicles.Flying;
-import vehicles.IDontLiftOff;
-import vehicles.ILiftOffH;
 import vehicles.LiftOff;
-import vehicles.IFlyLikePP;
-import vehicles.ILiftOffV;
-import vehicles.IDontFly;
 
 /**
  * @author oded
@@ -25,11 +19,16 @@ import vehicles.IDontFly;
 public class AirplaneTest {
 
 	private static FlyingFactory flyingFactory;
+	private static LiftOffFactory liftOffFactory;
 	
 	@BeforeClass
 	public static void onlyOnce(){ 
 		flyingFactory = new FlyingFactory();
+		liftOffFactory = new LiftOffFactory();
+		
 	}
+
+	
 
 	@Test
 	public void test1() {
@@ -38,7 +37,7 @@ public class AirplaneTest {
 		String stringReturned = null;
 		
 		Flying fly = flyingFactory.createFlying("Fighter Jet");
-		LiftOff liftOff = new ILiftOffV();
+		LiftOff liftOff = liftOffFactory.createLiftOff("Vertically");
 
 		Airplane classUnderTest = new Airplane(liftOff,fly);
 
@@ -55,8 +54,8 @@ public class AirplaneTest {
 		String expectedOutput = "I don't Fly";
 		String stringReturned = null;
 		
-		Flying fly = new IDontFly();
-		LiftOff liftOff = new ILiftOffV();
+		Flying fly = flyingFactory.createFlying("I don't fly");
+		LiftOff liftOff = liftOffFactory.createLiftOff("Vertically");
 
 		Airplane classUnderTest = new Airplane(liftOff,fly);
 
@@ -72,8 +71,8 @@ public class AirplaneTest {
 		String expectedOutput = "Like a passenger airplane";
 		String stringReturned = null;
 		
-		Flying fly = new IFlyLikePP();
-		LiftOff liftOff = new ILiftOffV();
+		Flying fly = flyingFactory.createFlying("Passenger airplane");
+		LiftOff liftOff = liftOffFactory.createLiftOff("Vertically");
 
 		Airplane classUnderTest = new Airplane(liftOff,fly);
 
@@ -90,8 +89,8 @@ public class AirplaneTest {
 		String expectedOutput = "Vertically";
 		String stringReturned = null;
 
-		Flying fly = new IFlyLikeFJ();
-		LiftOff liftOff = new ILiftOffV();
+		Flying fly = flyingFactory.createFlying("Fighter Jet");
+		LiftOff liftOff = liftOffFactory.createLiftOff("Vertically");
 
 		Airplane classUnderTest = new Airplane(liftOff,fly);
 
@@ -107,8 +106,8 @@ public class AirplaneTest {
 		String expectedOutput = "I don't LiftOff";
 		String stringReturned = null;
 
-		Flying fly = new IFlyLikeFJ();
-		LiftOff liftOff = new IDontLiftOff();
+		Flying fly = flyingFactory.createFlying("Fighter Jet");
+		LiftOff liftOff = liftOffFactory.createLiftOff("I don't LiftOff");
 
 		Airplane classUnderTest = new Airplane(liftOff,fly);
 
@@ -124,8 +123,8 @@ public class AirplaneTest {
 		String expectedOutput = "Horizontally";
 		String stringReturned = null;
 
-		Flying fly = new IFlyLikeFJ();
-		LiftOff liftOff = new ILiftOffH();
+		Flying fly = flyingFactory.createFlying("Fighter Jet");
+		LiftOff liftOff = liftOffFactory.createLiftOff("Horizontally");
 
 		Airplane classUnderTest = new Airplane(liftOff,fly);
 
