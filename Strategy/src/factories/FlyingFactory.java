@@ -1,4 +1,4 @@
-package tests;
+package factories;
 
 import vehicles.Flying;
 import vehicles.IDontFly;
